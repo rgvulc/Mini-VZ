@@ -508,7 +508,7 @@ func runVM(vmPath: String, headless: Bool, serial: Bool, background: Bool,
 
         var pid: pid_t = 0
         let argv = ([execPath] + bgArgs).map { strdup($0) } + [nil]
-        let rc = posix_spawn(&pid, execPath, &fileActions, &attrs, argv, environ)
+        let rc = posix_spawnp(&pid, execPath, &fileActions, &attrs, argv, environ)
         argv.compactMap { $0 }.forEach { free($0) }
         posix_spawn_file_actions_destroy(&fileActions)
         posix_spawnattr_destroy(&attrs)
